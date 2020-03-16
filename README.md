@@ -1,10 +1,6 @@
 # tvs_liveAPP
 Mobile Application for Teaching Volunteering Management System
 
-# tvsapp
-
-Volunteering in Primary Schools simplified
-
 ## Getting Started
 
 This project is a starting point for a Flutter application.
