@@ -1,0 +1,275 @@
+new Form(
+                //in the form we have column and in column we have widgets
+                child: new Theme(
+                  data: new ThemeData(
+                    brightness: Brightness.dark,
+                    primarySwatch: Colors.teal,
+                    inputDecorationTheme: InputDecorationTheme(
+                        labelStyle: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 20.0,
+                    )),
+                  ),
+                  // column to a container to give padding
+                  child: Container(
+                    padding: const EdgeInsets.all(40.0),
+                    child: new Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        new TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Enter email",
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        new TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Enter password",
+                          ),
+                          keyboardType: TextInputType.text,
+                          // hide the text using obscuretext
+                          obscureText: true,
+                        ),
+                        new Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                        ),
+                        new MaterialButton(
+                          color: Colors.teal,
+                          textColor: Colors.white,
+                          child: Text("Login"),
+                          onPressed: () {},
+                          splashColor: Colors.redAccent,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+
+fit: StackFit.expand,
+              new Image(
+            image: new AssetImage('assets/ngao.png'),
+            fit: BoxFit.cover,
+            color: Colors.black87,
+            colorBlendMode: BlendMode.darken,
+          ),
+
+          MAIN.DART
+
+          import 'package:flutter/material.dart';
+import 'package:tvsapp/home.dart';
+
+void main() => runApp(new MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: LoginPage(),
+      theme: new ThemeData(primarySwatch: Colors.blue),
+    );
+  }
+}
+
+class LoginPage extends StatefulWidget {
+  @override
+  State createState() => new LoginPageState();
+}
+
+class LoginPageState extends State<LoginPage> {
+  
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.greenAccent,
+      body: new Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          new Image(
+            image: new AssetImage('assets/ngao.png'),
+            fit: BoxFit.cover,
+            color: Colors.black87,
+            colorBlendMode: BlendMode.darken,
+          ),
+          new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Image(
+                width: 70.0,
+                image: new AssetImage('assets/vlogo.png'),
+              ),
+              new Form(
+                //in the form we have column and in column we have widgets
+                child: new Theme(
+                  data: new ThemeData(
+                    brightness: Brightness.dark,
+                    primarySwatch: Colors.teal,
+                    inputDecorationTheme: InputDecorationTheme(
+                        labelStyle: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 20.0,
+                    )),
+                  ),
+                  // column to a container to give padding
+                  child: Container(
+                    padding: const EdgeInsets.all(40.0),
+                    child: new Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        new TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Enter email",
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        new TextFormField(
+                          decoration: InputDecoration(
+                            labelText: "Enter password",
+                          ),
+                          keyboardType: TextInputType.text,
+                          // hide the text using obscuretext
+                          obscureText: true,
+                        ),
+                        new Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                        ),
+                        new MaterialButton(
+                          color: Colors.teal,
+                          textColor: Colors.white,
+                          child: Text("Login"),
+                          onPressed: () {
+                            navigateToMyApp2(context);
+                          },
+                          splashColor: Colors.redAccent,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }  
+}
+Future navigateToMyApp2(context) async{
+Navigator.push(
+ context,
+ MaterialPageRoute(builder: (context) => MyApp2()),
+ );
+
+}
+
+ICON.DART
+
+// Copyright 2017 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:flutter/material.dart';
+
+// This app is a stateful, it tracks the user's current choice.
+class BasicAppBarSample extends StatefulWidget {
+  @override
+  _BasicAppBarSampleState createState() => _BasicAppBarSampleState();
+}
+
+class _BasicAppBarSampleState extends State<BasicAppBarSample> {
+  Choice _selectedChoice = choices[0]; // The app's "state".
+
+  void _select(Choice choice) {
+    // Causes the app to rebuild with the new _selectedChoice.
+    setState(() {
+      _selectedChoice = choice;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Basic AppBar'),
+          actions: <Widget>[
+            // action button
+            IconButton(
+              icon: Icon(choices[0].icon),
+              onPressed: () {
+                _select(choices[0]);
+              },
+            ),
+            // action button
+            IconButton(
+              icon: Icon(choices[1].icon),
+              onPressed: () {
+                _select(choices[1]);
+              },
+            ),
+            // overflow menu
+            PopupMenuButton<Choice>(
+              onSelected: _select,
+              itemBuilder: (BuildContext context) {
+                return choices.skip(2).map((Choice choice) {
+                  return PopupMenuItem<Choice>(
+                    value: choice,
+                    child: Text(choice.title),
+                  );
+                }).toList();
+              },
+            ),
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ChoiceCard(choice: _selectedChoice),
+        ),
+      ),
+    );
+  }
+}
+
+class Choice {
+  const Choice({this.title, this.icon});
+
+  final String title;
+  final IconData icon;
+}
+
+const List<Choice> choices = const <Choice>[
+  const Choice(title: 'Car', icon: Icons.directions_car),
+  const Choice(title: 'Bicycle', icon: Icons.directions_bike),
+  const Choice(title: 'Boat', icon: Icons.directions_boat),
+  const Choice(title: 'Bus', icon: Icons.directions_bus),
+  const Choice(title: 'Train', icon: Icons.directions_railway),
+  const Choice(title: 'Walk', icon: Icons.directions_walk),
+];
+
+class ChoiceCard extends StatelessWidget {
+  const ChoiceCard({Key key, this.choice}) : super(key: key);
+
+  final Choice choice;
+
+  @override
+  Widget build(BuildContext context) {
+    final TextStyle textStyle = Theme.of(context).textTheme.headline;
+    return Card(
+      color: Colors.blue,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Icon(choice.icon, size: 128.0, color: textStyle.color),
+            Text(choice.title, style: textStyle),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(BasicAppBarSample());
+}
+
