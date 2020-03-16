@@ -55,7 +55,7 @@ class HomePageState extends State<HomePage> {
                 color: Colors.yellow,
               ),
               child: Text(
-                'Drawer Header',
+                'Volu App',
                 style: TextStyle(
                   color: Colors.black87,
                   fontSize: 24,
